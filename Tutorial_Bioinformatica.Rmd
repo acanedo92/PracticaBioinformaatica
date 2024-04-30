@@ -1,7 +1,7 @@
 ---
 title: "Introducción a Bioinformática"
 author: "M.C. Anahí Canedo Téxon"
-date: '2023-04-24'
+date: '2024-04-29'
 output:
   html_document:
     toc: true
@@ -21,14 +21,14 @@ Los proyectos involucrados con Ciencia de Datos incluyen una colección de datos
 - Para más información entra a [Happy Git with R](https://happygitwithr.com/).   
 > 
 
-![](/home/anahi/01.Bash/imagen_04.png){width='100%'height=100%} 
+![](/home/anahicanedo/Escritorio/ECOSUR2024/PracticaBioinformatica/Figuras/imagen_04.png){width='100%'height=100%} 
 
 > 
 **Github:**  
 - Host remoto en Internet, que  actúa como un canal de distribución para los proyectos administrados por Git.   
 - Permite compartir, almacenar y sincronizar proyectos entre los colaboradores de **manera remota**, para realizar lectura y edición de los archivos, a través de los llamados **repositorios**  
 
-![](/home/anahi/01.Bash/imagen_05.png){width='50%'height=50%} 
+![](/home/anahicanedo/Escritorio/ECOSUR2024/PracticaBioinformatica/Figuras/imagen_05.png){width='50%'height=50%} 
 >   
 
 ***Ventajas:***  
@@ -75,7 +75,7 @@ Se puede imprimir la estructura de directorios de tu home u otro directorio:
 ```{bash}
 #tree -L 1 -d $HOME/Escritorio/Practicas
 ```
-![](/home/anahi/01.Bash/imagen_06.png){width='100%'height=100%} 
+![](/home/anahicanedo/Escritorio/ECOSUR2024/PracticaBioinformatica/Figuras/imagen_06.png){width='100%'height=100%} 
 
 
 ***Ubicación del directorio actual***  
@@ -180,9 +180,9 @@ Nota: Para desarrollar los siguientes temas, nos vamos a la máquina virtual y a
 
 **Sistema de ventanas gráficas vs. Terminal**  
 El sistema de ventana de archivos, es el sistema común de carpetas y documentos que vemos en una computadora con sistema operativo Windows o Mac:  
-![**Ventana Windows**](/home/anahi/01.Bash/imagen_01.png){width='100%'height=100%}    
+![**Ventana Windows**](/home/anahicanedo/Escritorio/ECOSUR2024/PracticaBioinformatica/Figuras/imagen_07.png){width='100%'height=100%}    
 La terminal tiene una distribución diferente o una representación gráfica distinta.  
-![** Terminal**](/home/anahi/01.Bash/imagen_02.png){width='100%'height=100%}  
+![** Terminal**](/home/anahicanedo/Escritorio/ECOSUR2024/PracticaBioinformatica/Figuras/imagen_08.png){width='100%'height=100%}  
 **Rutas absolutas y relativas**  
 La ruta absoluta siempre comienza en el directorio raíz (/) 
 
@@ -316,7 +316,7 @@ usuario@sistema:~$ nano FileName
 * Esto abre el archivo o una nueva ventana del editor y se puede comenzar a editar el archivo.
 ~~~ 
 
-![](/home/anahi/01.Bash/imagen_03.png){width='100%'height=100%}  
+![](/home/anahicanedo/Escritorio/ECOSUR2024/PracticaBioinformatica/Figuras/imagen_09.png){width='100%'height=100%}  
 
 * En la parte inferior de la ventana, hay una lista de los comandos más básicos para usar con el editor. 
 
@@ -393,6 +393,41 @@ usuario@sistema:~$ nano FileName
 ```{bash}
 # zcat Genome03_sub1.fastq.gz| grep -c "@MISEQ-LAB244-W7"
 ```
+
+
+#### Clonar repositorio de SRA-tools
+```{bash}
+# git clone https://github.com/ncbi/sra-tools.git 
+# tar -zxvf sratoolkit.3.1.0-ubuntu64.tar.gz
+# cd sratoolkit.3.1.0-ubuntu64/bin
+# pwd
+# /home/anahicanedo/Descargas/Software/sratoolkit.3.1.0-ubuntu64/bin/prefetch ERR11468765
+# /home/anahicanedo/Descargas/Software/sratoolkit.3.1.0-ubuntu64/bin/fastq-dump ERR11468765
+```
+
+#### Descargar archivos SRA  
+<https://www.ncbi.nlm.nih.gov/sra/docs/sradownload/>
+
+```{bash}
+# pwd
+# /home/anahicanedo/Descargas/Software/sratoolkit.3.1.0-ubuntu64/bin/prefetch ERR11468765
+# /home/anahicanedo/Descargas/Software/sratoolkit.3.1.0-ubuntu64/bin/fastq-dump ERR114
+```
+
+#### Separar Reads R1 y R2:
+```{bash}
+# awk 'NR%8==1{c=4} c&&c--' ERR11468765.fastq > R1_ERR11468765.fastq
+# awk 'NR%8==5{c=4} c&&c--' ERR11468765.fastq > R2_ERR11468765.fastq
+```
+ 
+#### Subset de reads
+```{bash}
+# seqtk sample -s100 R1_ERR11468765.fastq 100000 > sub1_ERR11468765.fastq
+# seqtk sample -s100 R2_ERR11468765.fastq 100000 > sub2_ERR11468765.fastq
+```
+
+#### Verifica que hayas obtenido 100000 reads con el comando grep 
+
 
 # <span style="color: #00868B;"> **Control de calidad**</span> 
 
