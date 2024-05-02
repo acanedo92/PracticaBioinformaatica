@@ -433,8 +433,8 @@ usuario@sistema:~$ nano FileName
 
 #### Inspección visual de reads
 
-fastqc seqfile1 seqfile2 .. seqfileN
-quast.py
+fastqc seqfile1 seqfile2 .. seqfileN  
+
 ```{bash}
 # fastqc Genome03_sub1.fastq.gz Genome03_sub2.fastq.gz
 ```
