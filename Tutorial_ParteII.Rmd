@@ -1,0 +1,66 @@
+---
+title: "Alineamientos"
+output: html_document
+author: "acanedo92"
+date: "2024-05-03"
+---
+
+#### COMANDO HISTORY!!
+
+#### Anotación
+```{bash}
+# prokka --outdir Prokka_Annotation --prefix Pseudo --locustag locus --genus Pseudomonas --species aeruginosa --kingdom Bacteria  --evalue 0.0000000001 contigs.fa
+```
+
+#### Crear un archivo con el id de un gen de interes 
+```{bash}
+# Esto no es código
+# locus_00007 L-threonine dehydratase catabolic TdcB
+# nano -> -> "locus_00007"
+```
+
+
+#### Indexar el genoma
+```{bash}
+# cdbfasta Pseudo.faa
+```
+
+
+#### Extraer el la seguncia correspondiente del gen de interes
+```{bash}
+# cat idextract | cdbyank ../Prokka_Annotation/Pseudo.faa.cidx  > GenePsAu.fna
+```
+
+
+#### Buscar proteinas en Uniprot y guardar las secuencias en un archivo 
+```{bash}
+# Esto no es código
+# Uniprot.fasta
+```
+
+
+#### Concatenar las proteinas de uniprot y la secuencia del gen de Pseudomonas aureginosa
+```{bash}
+# cat Uniprot.fasta GenePsAu.fna  > test.fasta
+```
+
+#### Alineamientos
+```{bash}
+# muscle -in test.fasta -out test.muscle
+```
+
+#### Convertir a formato phy
+```{bash}
+# trimal -in test.muscle -automated1 -phylip -out test.phy
+```
+
+#### Realizar nuestro árbol filogenético 
+```{bash}
+# iqtree2 -s test.phy  --seqtype AA -T 5 -b 1000
+```
+
+#### Visualizar árbol en seaview
+```{bash}
+# Ejecutar seaview
+# Abrir el archivo test.phy.treefile
+```
